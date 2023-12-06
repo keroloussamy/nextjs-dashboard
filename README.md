@@ -20,3 +20,16 @@ One benefit of using layouts in Next.js is that on navigation, only the page com
 
 Templates are the exact same as Layouts, except that they render every time a route changes. This is useful for things like enter and exit animations and useEffect logic that happens on render.
 
+## Navigation
+Link allows you to do client-side navigation with JavaScript (no full refresh).
+
+Automatic code-splitting and prefetching:
+- To improve the navigation experience, Next.js automatically code splits your application by route segments. This is different from a traditional React SPA, where the browser loads all your application code on initial load.
+- Splitting code by routes means that pages become isolated. If a certain page throws an error, the rest of the application will still work.
+- Futhermore, in production, whenever Link components appear in the browser's viewport, Next.js automatically prefetches the code for the linked route in the background. By the time the user clicks the link, the code for the destination page will already be loaded in the background, and this is what makes the page transition near-instant!
+
+
+
+
+
+
