@@ -1,5 +1,22 @@
-## Next.js App Router Course - Starter
+## Fonts
+Fonts play a significant role in the design of a website, but using custom fonts in your project can affect performance if the font files need to be fetched and loaded.
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+Cumulative Layout Shift(CLS) is a metric used by Google to evaluate the performance and user experience of a website. With fonts, layout shift happens when the browser initially renders text in a fallback or system font and then swaps it out for a custom font once it has loaded. This swap can cause the text size, spacing, or layout to change, shifting elements around it.
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+Next.js automatically optimizes fonts in the application when you use the next/font module. It downloads font files at build time and hosts them with your other static assets. This means when a user visits your application, there are no additional network requests for fonts which would impact performance.
+
+
+## Images
+The <Image> Component is an extension of the HTML <img> tag, and comes with automatic image optimization, such as:
+- Preventing layout shift automatically when images are loading.
+- Resizing images to avoid shipping large images to devices with a smaller viewport.
+- Lazy loading images by default (images load as they enter the viewport).
+- Serving images in modern formats, like WebP and AVIF, when the browser supports it.
+
+It's good practice to set the width and height of your images to avoid layout shift, these should be an aspect ratio identical to the source image.
+
+## Layouts and Templates
+One benefit of using layouts in Next.js is that on navigation, only the page components update while the layout won't re-render. This is called [partial rendering](https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#3-partial-rendering).
+
+Templates are the exact same as Layouts, except that they render every time a route changes. This is useful for things like enter and exit animations and useEffect logic that happens on render.
+
