@@ -28,8 +28,15 @@ Automatic code-splitting and prefetching:
 - Splitting code by routes means that pages become isolated. If a certain page throws an error, the rest of the application will still work.
 - Futhermore, in production, whenever Link components appear in the browser's viewport, Next.js automatically prefetches the code for the linked route in the background. By the time the user clicks the link, the code for the destination page will already be loaded in the background, and this is what makes the page transition near-instant!
 
+## Static and Dynamic Rendering
+### Static rendering
+With static rendering, data fetching and rendering happens on the server at build time (when you deploy) or during [revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#revalidating-data). The result can then be distributed and cached in a [Content Delivery Network (CDN)](https://nextjs.org/docs/app/building-your-application/rendering/server-components#static-rendering-default).
 
+Whenever a user visits your application, the cached result is served. There are a couple of benefits of static rendering: Faster Websites, Reduced Server Load, Good SEO.
 
+Static rendering is useful for UI with no data or data that is shared across users, such as a static blog post or a product page. It might not be a good fit for a dashboard that has personalized data that is regularly updated.
 
+### Dynamic rendering
+With dynamic rendering, content is rendered on the server for each user at request time (when the user visits the page). There are a couple of benefits of dynamic rendering: Real-Time Data, User-Specific Content, Request Time Information (such as cookies or the URL search parameters).
 
 
