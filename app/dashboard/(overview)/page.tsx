@@ -2,19 +2,18 @@ import { Card } from '@/app/ui/dashboard/cards';
 import RevenueChart from '@/app/ui/dashboard/revenue-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
+import { fetchCardData } from '@/app/lib/data';
+import { Suspense } from 'react';
 import {
-  fetchRevenue,
-  fetchLatestInvoices,
-  fetchCardData,
-} from '@/app/lib/data';
+  RevenueChartSkeleton,
+  LatestInvoicesSkeleton,
+} from '@/app/ui/skeletons';
 
 export default async function Page() {
   /*
   "Request waterfall": "waterfall" refers to a sequence of network requests that depend on the completion of previous requests.
   You can request in parallel using Promise.all() or Promise.allSettled() this good for performance but what happens if one data request is slower than all the others?
   */
-  const revenue = await fetchRevenue();
-  const latestInvoices = await fetchLatestInvoices(); // wait for fetchRevenue() to finish
   const {
     numberOfInvoices,
     numberOfCustomers,
@@ -37,8 +36,12 @@ export default async function Page() {
         />
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        <RevenueChart revenue={revenue} />
-        <LatestInvoices latestInvoices={latestInvoices} />
+        <Suspense fallback={<RevenueChartSkeleton />}>
+          <RevenueChart />
+        </Suspense>
+        <Suspense fallback={<LatestInvoicesSkeleton />}>
+          <LatestInvoices />
+        </Suspense>
       </div>
     </main>
   );
