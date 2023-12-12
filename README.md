@@ -39,4 +39,13 @@ Static rendering is useful for UI with no data or data that is shared across use
 ### Dynamic rendering
 With dynamic rendering, content is rendered on the server for each user at request time (when the user visits the page). There are a couple of benefits of dynamic rendering: Real-Time Data, User-Specific Content, Request Time Information (such as cookies or the URL search parameters).
 
+## Request waterfall or parallel
+"Request waterfall": "waterfall" refers to a sequence of network requests that depend on the completion of previous requests.
+You can request in parallel using Promise.all() or Promise.allSettled() this good for performance but what happens if one data request is slower than all the others?
 
+## Streaming
+Streaming is a data transfer technique that allows you to break down a route into smaller "chunks" and progressively stream them from the server to the client as they become ready.
+
+There are two ways you implement streaming in Next.js:
+- At the page level, with the loading.tsx file.
+- For specific components, with ```<Suspense>```.
