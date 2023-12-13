@@ -5,6 +5,7 @@ import { CreateInvoice } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
+import { fetchInvoicesPages } from '@/app/lib/data';
 
 export default async function Page({
   searchParams,
@@ -16,6 +17,8 @@ export default async function Page({
 }) {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
+
+  const totalPages = await fetchInvoicesPages(query);
 
   return (
     <div className="w-full">
@@ -30,7 +33,7 @@ export default async function Page({
         <Table query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
-        {/* <Pagination totalPages={totalPages} /> */}
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   );
@@ -43,4 +46,10 @@ You might have noticed you used two different ways to extract search params. Whe
   <Search> is a Client Component, so you used the useSearchParams() hook to access the params from the client.
   <Table> is a Server Component that fetches its own data, so you can pass the searchParams prop from the page to the component.
 As a general rule, if you want to read the params from the client, use the useSearchParams() hook as this avoids having to go back to the server.
+*/
+
+/*
+<Pagination/> it's a Client Component. 
+You don't want to fetch data on the client as this would expose your database secrets (remember, you're not using an API layer).
+Instead, you can fetch the data on the server, and pass it to the component as a prop.
 */

@@ -49,3 +49,18 @@ Streaming is a data transfer technique that allows you to break down a route int
 There are two ways you implement streaming in Next.js:
 - At the page level, with the loading.tsx file.
 - For specific components, with ```<Suspense>```.
+
+
+
+## When to use the useSearchParams() hook vs. the searchParams prop?
+You might have noticed you used two different ways to extract search params. Whether you use one or the other depends on whether you're working on the client or the server.
+
+- ```<Search>``` is a Client Component, so you used the useSearchParams() hook to access the params from the client.
+- ```<Table> ``` is a Server Component that fetches its own data, so you can pass the searchParams prop from the page to the component.
+  
+As a general rule, if you want to read the params from the client, use the useSearchParams() hook as this avoids having to go back to the server.
+
+## input: defaultValue vs. value / Controlled vs. Uncontrolled
+If you're using state to manage the value of an input, you'd use the value attribute to make it a controlled component. This means React would manage the input's state.
+
+However, since you're not using state, you can use defaultValue. This means the native input will manage its own state. This is okay since you're saving the search query to the URL instead of state.

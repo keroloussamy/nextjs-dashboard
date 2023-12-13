@@ -12,6 +12,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
   // By debouncing, you can reduce the number of requests sent to your database, thus saving resources.
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
+    params.set('page', '1'); // reset the page number to 1
     if (term) {
       params.set('query', term);
     } else {
