@@ -1,5 +1,6 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { deleteInvoice } from '@/app/lib/actions';
 
 export function CreateInvoice() {
   return (
@@ -25,12 +26,16 @@ export function UpdateInvoice({ id }: { id: string }) {
 }
 
 export function DeleteInvoice({ id }: { id: string }) {
+  // You cannot pass the id as an argument like <form action={updateInvoice(id)}>
+  // Instead, you can pass id to the Server Action using JS bind. This will ensure that any values passed to the Server Action are encoded.
+  const deleteInvoiceWithId = deleteInvoice.bind(null, id);
   return (
-    <>
+    // To delete an invoice using a Server Action, wrap the delete button in a <form> element and pass the id to the Server Action using bind.
+    <form action={deleteInvoiceWithId}>
       <button className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-5" />
       </button>
-    </>
+    </form>
   );
 }
