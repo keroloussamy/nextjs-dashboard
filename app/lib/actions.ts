@@ -12,10 +12,13 @@ const FormSchema = z.object({
   status: z.enum(['pending', 'paid']),
   date: z.string(),
 });
- 
-const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
-// Server Action
+// Use Zod to update the expected types
+const CreateInvoice = FormSchema.omit({ id: true, date: true });
+const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+
+
+// Create Server Action
 export async function createInvoice(formData: FormData) {
   const { customerId, amount, status } = CreateInvoice.parse({
     customerId: formData.get('customerId'),
@@ -34,5 +37,25 @@ export async function createInvoice(formData: FormData) {
 
   // Revalidate and redirect.
   revalidatePath('/dashboard/invoices'); // To clear the cached data and trigger a new request to the server.
+  redirect('/dashboard/invoices');
+}
+
+// Update Server Action
+export async function updateInvoice(id: string, formData: FormData) {
+  const { customerId, amount, status } = UpdateInvoice.parse({
+    customerId: formData.get('customerId'),
+    amount: formData.get('amount'),
+    status: formData.get('status'),
+  });
+ 
+  const amountInCents = amount * 100;
+ 
+  await sql`
+    UPDATE invoices
+    SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
+    WHERE id = ${id}
+  `;
+ 
+  revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
 }
