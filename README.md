@@ -9,6 +9,9 @@
 - Next Auth
 - PostgreSQL
 
+## Notes
+> Use Email: ```user@nextmail.com``` and Password: ```123456``` to login.
+
 ## Some points to remember :
 
 ## Fonts
