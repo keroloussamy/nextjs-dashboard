@@ -1,3 +1,16 @@
+# Next.js Dashboard app
+> Following the [Next.js learn tutorial](https://nextjs.org/learn/dashboard-app) for learning Next.js 14 features.
+
+<img src="./app/opengraph-image.png" >
+
+## Built With
+
+- Next.js 14
+- Next Auth
+- PostgreSQL
+
+## Some points to remember :
+
 ## Fonts
 Fonts play a significant role in the design of a website, but using custom fonts in your project can affect performance if the font files need to be fetched and loaded.
 
